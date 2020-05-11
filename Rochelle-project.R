@@ -1,4 +1,4 @@
-#for Rochelle, Mki67,Atoh1 (or Sox2)
+#for Rochelle, Mki67, Sox2 (or Atoh1)
 library(Seurat)
 library(dplyr)
 library(ggplot2)
@@ -8,6 +8,8 @@ library(tidyverse)
 library(pheatmap)
 library(patchwork)
 library(grid)
+
+#Alter "Sox2" to "Atoh1", we could generate the results for Mki67-Atoh1 combination.
 #--------------P21 Math1-cre;SmoM2 Model----------------
 setwd("E:/share18/share1/Xin/analysis/data_pre_monocle")
 load("MB.Robj")
@@ -49,7 +51,7 @@ dev.off()
 #Co-labeling of Mki67 and Sox2
 gene_exprs <- t(as.matrix(MB@assays$spliced@counts[which(rownames(MB@assays$spliced@counts) %in% c("Mki67","Sox2")),]))
 MB@meta.data <- cbind(MB@meta.data,gene_exprs)
-#Regrouping Cells based Sox2,Gfap,Dcx costainding
+#Regrouping Cells based Sox2, Mki67 colabelling
 MB@meta.data$Mki67_Grouping <- ifelse(MB@meta.data$Mki67 >= 1,"Mki67_pos","Mki67_neg")
 MB@meta.data$Sox2_Grouping <- ifelse(MB@meta.data$Sox2 >= 1,"Sox2_pos","Sox2_neg")
 MB@meta.data$Mki67_Sox2_Grouping <- ifelse(MB@meta.data$Mki67 < 1 & MB@meta.data$Sox2 < 1, "Double negtive",
@@ -121,7 +123,7 @@ dev.off()
 #Co-labeling of Mki67 and Sox2
 gene_exprs <- t(as.matrix(integrated@assays$RNA@counts[which(rownames(integrated@assays$RNA@counts) %in% c("Mki67","Sox2")),]))
 integrated@meta.data <- cbind(integrated@meta.data,gene_exprs)
-#Regrouping Cells based Sox2,Gfap,Dcx costainding
+#Regrouping Cells based Sox2, Mki67 colabelling
 integrated@meta.data$Mki67_Grouping <- ifelse(integrated@meta.data$Mki67 >= 1,"Mki67_pos","Mki67_neg")
 integrated@meta.data$Sox2_Grouping <- ifelse(integrated@meta.data$Sox2 >= 1,"Sox2_pos","Sox2_neg")
 integrated@meta.data$Mki67_Sox2_Grouping <- ifelse(integrated@meta.data$Mki67 < 1 & integrated@meta.data$Sox2 < 1, "Double negtive",
@@ -192,7 +194,7 @@ dev.off()
 #Co-labeling of Mki67 and Sox2
 gene_exprs <- t(as.matrix(MB@assays$RNA@counts[which(rownames(MB@assays$RNA@counts) %in% c("Mki67","Sox2")),]))
 MB@meta.data <- cbind(MB@meta.data,gene_exprs)
-#Regrouping Cells based Sox2,Gfap,Dcx costainding
+#Regrouping Cells based Sox2, Mki67 colabelling
 MB@meta.data$Mki67_Grouping <- ifelse(MB@meta.data$Mki67 >= 1,"Mki67_pos","Mki67_neg")
 MB@meta.data$Sox2_Grouping <- ifelse(MB@meta.data$Sox2 >= 1,"Sox2_pos","Sox2_neg")
 MB@meta.data$Mki67_Sox2_Grouping <- ifelse(MB@meta.data$Mki67 < 1 & MB@meta.data$Sox2 < 1, "Double negtive",
@@ -266,7 +268,7 @@ dev.off()
 #Co-labeling of MKI67 and SOX2
 gene_exprs <- t(as.matrix(integrated@assays$RNA@counts[which(rownames(integrated@assays$RNA@counts) %in% c("MKI67","SOX2")),]))
 integrated@meta.data <- cbind(integrated@meta.data,gene_exprs)
-#Regrouping Cells based Sox2,Gfap,Dcx costainding
+#Regrouping Cells based Sox2, Mki67 colabelling
 integrated@meta.data$MKI67_Grouping <- ifelse(integrated@meta.data$MKI67 >= 1,"MKI67_pos","MKI67_neg")
 integrated@meta.data$SOX2_Grouping <- ifelse(integrated@meta.data$SOX2 >= 1,"SOX2_pos","SOX2_neg")
 integrated@meta.data$MKI67_SOX2_Grouping <- ifelse(integrated@meta.data$MKI67 < 1 & integrated@meta.data$SOX2 < 1, "Double negtive",
